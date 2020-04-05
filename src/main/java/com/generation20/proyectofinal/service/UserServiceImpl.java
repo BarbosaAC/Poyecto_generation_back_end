@@ -19,9 +19,14 @@ public class UserServiceImpl implements UserService{
 		return userRepository.findAll();
 	}
 	@Override
-	public void remove(Integer id) {
-		// TODO Auto-generated method stub
-		
+	public List<User> getVisible() {
+		return userRepository.findByVisibility(true);
+	}
+	@Override
+	public User remove(Integer id) {
+		User userRemove = getById(id);
+		userRemove.setVisibility(false);
+		return userRepository.save(userRemove);
 	}
 	@Override
 	public User getById(Integer id) {

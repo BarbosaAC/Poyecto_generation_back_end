@@ -1,12 +1,17 @@
 package com.generation20.proyectofinal.molde;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,10 +36,15 @@ public class Sport {
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
+	@OneToMany(targetEntity = UserSport.class, cascade = CascadeType.ALL,
+			fetch = FetchType.LAZY, orphanRemoval = true)
+	@JoinColumn(name = "idSport", referencedColumnName = "id")
+	private List<UserSport> userSport;
 	
 	public Sport() {}
 
-	public Sport(Integer id, String name, String description, String type, String photo, Date createdAt) {
+	public Sport(Integer id, String name, String description, String type, 
+			String photo, Date createdAt, List<UserSport> userSport) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -42,6 +52,15 @@ public class Sport {
 		this.type = type;
 		this.photo = photo;
 		this.createdAt = createdAt;
+		this.userSport = userSport;
+	}
+	
+	public List<UserSport> getUser() {
+		return userSport;
+	}
+
+	public void setUser(List<UserSport> userSport) {
+		this.userSport = userSport;
 	}
 
 	public Integer getId() {

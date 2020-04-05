@@ -10,5 +10,6 @@ public interface UserService {
 	List<User> getAll();
 	User getById(Integer id);
 	User update(Integer id, User user);
-	void remove(Integer id);
+	User remove(Integer id);
+	List<User> getVisible();	
 }

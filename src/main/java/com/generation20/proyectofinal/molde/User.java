@@ -1,12 +1,17 @@
 package com.generation20.proyectofinal.molde;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,14 +39,19 @@ public class User {
 	private String description;
 	@Column(length = 100)
 	private String profilePic;
+	private Boolean visibility = true;
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
+	@OneToMany(targetEntity = UserSport.class, cascade = CascadeType.ALL,
+			fetch = FetchType.LAZY, orphanRemoval = true)
+	@JoinColumn(name = "idUser", referencedColumnName = "id")
+	private List<UserSport> userSport;
 	
 	public User() {}
 
 	public User(Integer id, String name, String lastName, String userName, String email, String password,
-			String description, String profilePic, Date createdAt) {
+			String description, String profilePic, Date createdAt, List<UserSport> userSport, Boolean visibility ) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -52,6 +62,24 @@ public class User {
 		this.description = description;
 		this.profilePic = profilePic;
 		this.createdAt = createdAt;
+		this.userSport = userSport;
+		this.visibility = visibility;
+	}
+	
+	public Boolean getVisibility() {
+		return visibility;
+	}
+
+	public void setVisibility(Boolean visibility) {
+		this.visibility = visibility;
+	}
+
+	public List<UserSport> getSport() {
+		return userSport;
+	}
+
+	public void setSport(List<UserSport> userSport) {
+		this.userSport = userSport;
 	}
 
 	public Integer getId() {
