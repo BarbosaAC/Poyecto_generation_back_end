@@ -10,8 +10,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 @Entity
 @Table(name = "user_sport")
 public class UserSport {
@@ -21,20 +19,30 @@ public class UserSport {
 	private Integer idUserSport;
 	private Integer idUser;
 	private Integer idSport;
-	private Boolean visibility = true;
-	@CreationTimestamp
+	private Boolean visibility;
+	private String nameSport;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
 	
 	public UserSport() {}
 
-	public UserSport(Integer idUserSport, Integer idUser, Integer idSport, Date createdAt, Boolean visibility) {
+	public UserSport(Integer idUserSport, Integer idUser, Integer idSport, Boolean visibility, String nameSport,
+			Date createdAt) {
 		super();
 		this.idUserSport = idUserSport;
 		this.idUser = idUser;
 		this.idSport = idSport;
-		this.createdAt = createdAt;
 		this.visibility = visibility;
+		this.nameSport = nameSport;
+		this.createdAt = createdAt;
+	}
+
+	public String getNameSport() {
+		return nameSport;
+	}
+
+	public void setNameSport(String nameSport) {
+		this.nameSport = nameSport;
 	}
 
 	public Boolean getVisibility() {

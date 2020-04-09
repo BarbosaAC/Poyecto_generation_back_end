@@ -10,5 +10,5 @@ import com.generation20.proyectofinal.molde.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
 
-	List<User> findByVisibility(Boolean visibility);
+	List<User> findByVisibility(boolean visibility);
 }

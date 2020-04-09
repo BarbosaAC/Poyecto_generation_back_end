@@ -1,5 +1,6 @@
 package com.generation20.proyectofinal.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +25,26 @@ public class SportServiceImpl implements SportService{
 	}
 	@Override
 	public Sport remove(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		Sport sport = getById(id);
+		sport.setVisibility(false);
+		return sportRepository.save(sport);
 	}
 	@Override
 	public Sport save(Sport sport) {
+		sport.setCreatedAt(new Date());
+		sport.setVisibility(true);
 		return sportRepository.save(sport);
 	}
 	@Override
 	public Sport update(Integer id, Sport sport) {
-		// TODO Auto-generated method stub
-		return null;
+		Sport sportDB = getById(id);
+		sportDB.setDescription(sport.getDescription());
+		sportDB.setPhoto(sport.getPhoto());
+		sportDB.setType(sport.getType());
+		return sportRepository.save(sportDB);
+	}
+	@Override
+	public List<Sport> getByVisibility() {
+		return sportRepository.findByVisibility(true);
 	}
 }

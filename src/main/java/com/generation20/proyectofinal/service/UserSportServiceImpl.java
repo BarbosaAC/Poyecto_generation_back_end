@@ -1,11 +1,14 @@
 package com.generation20.proyectofinal.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.generation20.proyectofinal.dao.SportRepository;
 import com.generation20.proyectofinal.dao.UserSportRepository;
+import com.generation20.proyectofinal.molde.Sport;
 import com.generation20.proyectofinal.molde.UserSport;
 
 @Service
@@ -13,6 +16,8 @@ public class UserSportServiceImpl implements UserSportService{
 
 	@Autowired
 	private UserSportRepository userSportRepository;
+	@Autowired
+	private SportRepository sportRepository;
 	
 	@Override
 	public List<UserSport> getAllSportsByIdUser(Integer idUser) {
@@ -24,6 +29,10 @@ public class UserSportServiceImpl implements UserSportService{
 	}
 	@Override
 	public UserSport save(UserSport userSport) {
+		Sport sport = sportRepository.findById(userSport.getIdSport()).get();
+		userSport.setCreatedAt(new Date());
+		userSport.setVisibility(true);
+		userSport.setNameSport(sport.getName());
 		return userSportRepository.save(userSport);
 	}
 	@Override

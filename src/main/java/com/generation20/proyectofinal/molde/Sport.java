@@ -16,8 +16,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 @Entity
 @Table(name = "sport")
 public class Sport {
@@ -33,7 +31,7 @@ public class Sport {
 	private String type;
 	@Column(length = 100, nullable = false)
 	private String photo;
-	@CreationTimestamp
+	private boolean visibility;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
 	@OneToMany(targetEntity = UserSport.class, cascade = CascadeType.ALL,
@@ -43,18 +41,30 @@ public class Sport {
 	
 	public Sport() {}
 
-	public Sport(Integer id, String name, String description, String type, 
-			String photo, Date createdAt, List<UserSport> userSport) {
+	
+	public Sport(Integer id, String name, String description, String type, String photo, boolean visibility,
+			Date createdAt, List<UserSport> userSport) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.type = type;
 		this.photo = photo;
+		this.visibility = visibility;
 		this.createdAt = createdAt;
 		this.userSport = userSport;
 	}
-	
+
+	public boolean getVisibility() {
+		return visibility;
+	}
+
+
+	public void setVisibility(boolean visibility) {
+		this.visibility = visibility;
+	}
+
+
 	public List<UserSport> getUser() {
 		return userSport;
 	}

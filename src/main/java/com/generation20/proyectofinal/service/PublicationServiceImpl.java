@@ -1,46 +1,88 @@
 package com.generation20.proyectofinal.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.generation20.proyectofinal.dao.PublicationRepository;
+import com.generation20.proyectofinal.dao.SportRepository;
+import com.generation20.proyectofinal.dao.UserRepository;
 import com.generation20.proyectofinal.molde.Publication;
+import com.generation20.proyectofinal.molde.Sport;
+import com.generation20.proyectofinal.molde.User;
 
 @Service
 public class PublicationServiceImpl implements PublicationService{
 
 	@Autowired
 	private PublicationRepository publicationRepository;
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private SportRepository sportRepository;
 	
 	@Override
 	public List<Publication> getAll() {
 		return publicationRepository.findAll();
 	}
 	@Override
-	public List<Publication> getAllPublicationsByIdSport(Integer idSport) {
+	public List<Publication> getAllByIdSport(Integer idSport) {
 		return publicationRepository.findAllByIdSport(idSport);
 	}
 	@Override
-	public List<Publication> getAllPublicationsByIdUser(Integer idUser) {
+	public List<Publication> getAllByIdUser(Integer idUser) {
 		return publicationRepository.findAllByIdUser(idUser);
 	}
 	@Override
-	public List<Publication> getAllPublicationsByIdUserAndIdSport(Integer idUser, Integer idSport) {
+	public List<Publication> getAllByIdUserAndIdSport(Integer idUser, Integer idSport) {
 		return publicationRepository.findAllByIdUserAndIdSport(idUser, idSport);
 	}
 	@Override
 	public Publication save(Publication publication) {
+		User user = userRepository.findById(publication.getIdUser()).get();
+		Sport sport = sportRepository.findById(publication.getIdSport()).get();
+		publication.setCreatedAt(new Date());
+		publication.setVisibility(true);
+		publication.setNameAuthor(user.getUserName());
+		publication.setNameSport(sport.getName());
 		return publicationRepository.save(publication);
 	}
 	@Override
-	public List<Publication> update(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Publication update(Integer id, Publication publication) {
+		Publication publicationDB = getById(id);
+		publicationDB.setCost(publication.getCost());
+		publicationDB.setLink(publication.getLink());
+		publicationDB.setPhoto(publication.getPhoto());
+		publicationDB.setText(publication.getText());
+		publicationDB.setUbication(publication.getUbication());
+		return publicationRepository.save(publicationDB);
 	}
 	@Override
 	public Publication getById(Integer id) {
 		return publicationRepository.findById(id).get();
+	}
+	@Override
+	public Publication delete(Integer id) {
+		Publication publication = getById(id);
+		publication.setVisibility(false);
+		return publicationRepository.save(publication);
+	}
+	@Override
+	public List<Publication> getByIdSportAndVisibiliy(Integer idSport) {
+		return publicationRepository.findByIdSportAndVisibility(idSport, true) ;
+	}
+	@Override
+	public List<Publication> getByIdUserAndIdSportAndVisibility(Integer idUser, Integer idSport) {
+		return publicationRepository.findByIdUserAndIdSportAndVisibility(idUser, idSport, true);
+	}
+	@Override
+	public List<Publication> getByIdUserAndVisibility(Integer idUser) {
+		return publicationRepository.findByIdUserAndVisibility(idUser, true);
+	}
+	@Override
+	public List<Publication> getByVisibility() {
+		return publicationRepository.findByVisibility(true);
 	}
 }

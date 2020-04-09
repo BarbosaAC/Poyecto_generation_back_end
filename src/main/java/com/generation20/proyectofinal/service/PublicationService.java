@@ -8,9 +8,14 @@ public interface PublicationService {
 
 	Publication save(Publication publication);
 	List<Publication> getAll();
-	List<Publication> getAllPublicationsByIdUser(Integer idUser);
-	List<Publication> getAllPublicationsByIdSport(Integer idSport);
-	List<Publication> getAllPublicationsByIdUserAndIdSport(Integer idUser, Integer idSport);
-	List<Publication> update(Integer id);
+	List<Publication> getByVisibility();
+	List<Publication> getAllByIdUser(Integer idUser);
+	List<Publication> getByIdUserAndVisibility(Integer idUser);
+	List<Publication> getAllByIdSport(Integer idSport);
+	List<Publication> getByIdSportAndVisibiliy(Integer idSport);
+	List<Publication> getAllByIdUserAndIdSport(Integer idUser, Integer idSport);
+	List<Publication> getByIdUserAndIdSportAndVisibility(Integer idUser, Integer idSport);
+	Publication update(Integer id, Publication publication);
 	Publication getById(Integer id);
+	Publication delete(Integer id);
 }

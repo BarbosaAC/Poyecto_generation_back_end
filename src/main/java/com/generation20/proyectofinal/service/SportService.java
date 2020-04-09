@@ -10,5 +10,6 @@ public interface SportService {
 	List<Sport> getAll();
 	Sport getById(Integer id);
 	Sport update(Integer id, Sport sport);
-	Sport remove(Integer id);
+	Sport remove(Integer idSport);
+	List<Sport> getByVisibility();
 }

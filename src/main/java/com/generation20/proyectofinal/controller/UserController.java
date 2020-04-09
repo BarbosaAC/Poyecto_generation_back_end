@@ -3,11 +3,16 @@ package com.generation20.proyectofinal.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.generation20.proyectofinal.molde.User;
@@ -25,50 +30,36 @@ public class UserController {
 	private UserSportService userSportService;
 	
 	@GetMapping("/allUsers")
-	public List<User> getUsers(){
-		return userService.getAll();
+	public ResponseEntity<List<User>> getUsers(){
+		return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
 	}
 	@GetMapping
-	public List<User> getUserVisible(){
-		return userService.getVisible();
+	public ResponseEntity<List<User>> getUserVisible(){
+		return new ResponseEntity<>(userService.getVisible(), HttpStatus.OK);
 	}
 	@GetMapping("/{id}")
-	public User getUserById(@PathVariable("id") Integer id) {
-		return userService.getById(id);
+	public ResponseEntity<User> getUserById(@PathVariable("id") Integer id) {
+		return new ResponseEntity<>(userService.getById(id), HttpStatus.OK);
 	}
 	@PostMapping
-	public User creatUser(@RequestBody User user) {
-		return userService.save(user);
+	public ResponseEntity<User> creatUser(@RequestBody User user) {
+		return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
 	}
-	@PostMapping("/{id}")
-	public User updateUser(@PathVariable Integer id, @RequestBody User user) {
-		return userService.update(id, user);
-	}
-	
-	@PostMapping("/userSport")
-	public UserSport createRelationUserSport(@RequestBody UserSport userSport) {
-		
-		if(userSportService.getByIdUserAndIdSport(userSport.getIdUser(), userSport.getIdSport()) == null) {
-			return userSportService.save(userSport);
-		}else {
-			return userSportService.update(userSport);
-		}
+	@PutMapping
+	public ResponseEntity<User> updateUser(@RequestParam(value = "id") Integer id, @RequestBody User user) {
+		return new ResponseEntity<>(userService.update(id, user), HttpStatus.CREATED);
 	}
 	@GetMapping("/{id}/sports")
-	public List<UserSport> getSportsByIdUser(@PathVariable("id") Integer idUser){
-		return userSportService.getSportsByIdUser(idUser);
+	public ResponseEntity<List<UserSport>> getSportsByIdUser(@PathVariable("id") Integer idUser){
+		return new ResponseEntity<>(userSportService.getSportsByIdUser(idUser), HttpStatus.OK);
 	}
 	@GetMapping("/{id}/allSports")
-	public List<UserSport> getAllSportsByIdUser(@PathVariable("id") Integer idUser){
-		return userSportService.getAllSportsByIdUser(idUser);
+	public ResponseEntity<List<UserSport>> getAllSportsByIdUser(@PathVariable("id") Integer idUser){
+		return new ResponseEntity<>(userSportService.getAllSportsByIdUser(idUser), HttpStatus.OK);
 	}
-	@PostMapping("/userSport/delete")
-	public UserSport deleteUserSport(@RequestBody UserSport userSport) {
-		return userSportService.remove(userSport);
-	}
-	@GetMapping("/{id}/delete")
-	public User deleteUser(@PathVariable("id") Integer id) {
-		return userService.remove(id);
+	@DeleteMapping
+	public ResponseEntity<User> deleteUser(@RequestParam(value = "id") Integer id) {
+		return new ResponseEntity<>(userService.remove(id), HttpStatus.OK);
 	}
 	
 }

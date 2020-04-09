@@ -16,8 +16,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 @Entity
 @Table(name = "user")
 public class User {
@@ -29,18 +27,17 @@ public class User {
 	private String name;
 	@Column(length = 30, nullable = false)
 	private String lastName;
-	@Column(length = 30, nullable = false)
+	@Column(length = 30, nullable = false, unique = false)
 	private String userName;
-	@Column(length = 30, nullable = false)
+	@Column(length = 50, nullable = false, unique = false)
 	private String email;
-	@Column(length = 30, nullable = false)
+	@Column(length = 100, nullable = false)
 	private String password;
 	@Column(length = 255)
-	private String description;
+	private volatile String description;
 	@Column(length = 100)
 	private String profilePic;
-	private Boolean visibility = true;
-	@CreationTimestamp
+	private boolean visibility;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
 	@OneToMany(targetEntity = UserSport.class, cascade = CascadeType.ALL,
@@ -51,7 +48,7 @@ public class User {
 	public User() {}
 
 	public User(Integer id, String name, String lastName, String userName, String email, String password,
-			String description, String profilePic, Date createdAt, List<UserSport> userSport, Boolean visibility ) {
+			String description, String profilePic, Date createdAt, List<UserSport> userSport, boolean visibility ) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -66,11 +63,11 @@ public class User {
 		this.visibility = visibility;
 	}
 	
-	public Boolean getVisibility() {
+	public boolean getVisibility() {
 		return visibility;
 	}
 
-	public void setVisibility(Boolean visibility) {
+	public void setVisibility(boolean visibility) {
 		this.visibility = visibility;
 	}
 

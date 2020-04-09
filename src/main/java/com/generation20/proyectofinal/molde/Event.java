@@ -12,81 +12,81 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "publication")
-public class Publication {
+@Table(name = "event")
+public class Event {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer id;
 	@Column(nullable = false)
 	public Integer idUser;
-	@Column(nullable = false)
 	public Integer idSport;
-	@Column(length = 512, nullable = false)
-	public String text;
-	@Column(length = 100, nullable = false)
+	@Column(length = 100)
 	public String photo;
-	@Column(length = 100, nullable = false)
-	public String ubication;
-	@Column(length = 100, nullable = false)
+	@Column(length = 512, nullable = false)
+	public String description;
+	@Column(length = 50)
 	public String link;
-	@Column(nullable = false)
-	public int cost;
-	public boolean visibility;
+	@Column(length = 50)
+	public String ubication;
+	@Column (length = 20)
+	public String eventTime;
+	@Temporal (TemporalType.DATE)
+	public Date eventDate;
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date createdAt;
 	@Column(length = 30, nullable = false)
 	public String nameAuthor;
 	@Column(length = 30, nullable = false)
 	public String nameSport;
-	@Temporal(TemporalType.TIMESTAMP)
-	public Date createdAt;
 	
-	public Publication() {}
+	public Event() {}
 
 
-
-	public Publication(Integer id, Integer idUser, Integer idSport, String text, String photo, String ubication,
-			String link, int cost, boolean visibility, String nameAuthor, String nameSport, Date createdAt) {
+	public Event(Integer id, Integer idUser, Integer idSport, String photo, String description, String link,
+			String ubication, String eventTime, Date eventDate, Date createdAt, String nameAuthor, String nameSport) {
 		super();
 		this.id = id;
 		this.idUser = idUser;
 		this.idSport = idSport;
-		this.text = text;
 		this.photo = photo;
-		this.ubication = ubication;
+		this.description = description;
 		this.link = link;
-		this.cost = cost;
-		this.visibility = visibility;
+		this.ubication = ubication;
+		this.eventTime = eventTime;
+		this.eventDate = eventDate;
+		this.createdAt = createdAt;
 		this.nameAuthor = nameAuthor;
 		this.nameSport = nameSport;
-		this.createdAt = createdAt;
 	}
-
 	
 	public String getNameAuthor() {
 		return nameAuthor;
 	}
 
+
 	public void setNameAuthor(String nameAuthor) {
 		this.nameAuthor = nameAuthor;
 	}
+
 
 	public String getNameSport() {
 		return nameSport;
 	}
 
+
 	public void setNameSport(String nameSport) {
 		this.nameSport = nameSport;
 	}
 
-	public boolean getVisibility() {
-		return visibility;
+
+	public String getEventTime() {
+		return eventTime;
 	}
 
-	public void setVisibility(boolean visibility) {
-		this.visibility = visibility;
+	public void setEventTime(String eventTime) {
+		this.eventTime = eventTime;
 	}
-
-
 
 	public Integer getId() {
 		return id;
@@ -112,14 +112,6 @@ public class Publication {
 		this.idSport = idSport;
 	}
 
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-
 	public String getPhoto() {
 		return photo;
 	}
@@ -128,12 +120,12 @@ public class Publication {
 		this.photo = photo;
 	}
 
-	public String getUbication() {
-		return ubication;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setUbication(String ubication) {
-		this.ubication = ubication;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getLink() {
@@ -144,12 +136,20 @@ public class Publication {
 		this.link = link;
 	}
 
-	public int getCost() {
-		return cost;
+	public String getUbication() {
+		return ubication;
 	}
 
-	public void setCost(int cost) {
-		this.cost = cost;
+	public void setUbication(String ubication) {
+		this.ubication = ubication;
+	}
+
+	public Date getEventDate() {
+		return eventDate;
+	}
+
+	public void setEventDate(Date eventDate) {
+		this.eventDate = eventDate;
 	}
 
 	public Date getCreatedAt() {
@@ -158,5 +158,5 @@ public class Publication {
 
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
-	}	
+	};
 }
