@@ -11,4 +11,5 @@ import com.generation20.proyectofinal.molde.User;
 public interface UserRepository extends JpaRepository<User, Integer>{
 
 	List<User> findByVisibility(boolean visibility);
+	User findByEmail(String email);
 }

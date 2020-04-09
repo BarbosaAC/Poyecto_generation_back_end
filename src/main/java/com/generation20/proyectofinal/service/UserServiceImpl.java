@@ -53,4 +53,19 @@ public class UserServiceImpl implements UserService{
 		userDB.setProfilePic(user.getProfilePic());
 		return userRepository.save(userDB);
 	}
+	@Override
+	public Integer verified(String email, String password) {
+		User user = userRepository.findByEmail(email);
+		if(user!=null){
+			BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), user.getPassword());
+			if(result.verified) {
+				return user.getId();
+			}else {
+				return 0;
+			}
+		}else {
+			return 0;
+		}
+		
+	}
 }

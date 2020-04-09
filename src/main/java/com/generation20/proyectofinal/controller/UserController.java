@@ -61,5 +61,15 @@ public class UserController {
 	public ResponseEntity<User> deleteUser(@RequestParam(value = "id") Integer id) {
 		return new ResponseEntity<>(userService.remove(id), HttpStatus.OK);
 	}
+	@PostMapping("/login")
+	public ResponseEntity<Integer> loginUser(@RequestBody User user){
+		Integer idUser = userService.verified(user.getEmail(), user.getPassword());
+		if(idUser != 0) {
+			return new ResponseEntity<>(idUser, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(idUser, HttpStatus.NOT_ACCEPTABLE);
+		}
+		
+	}
 	
 }

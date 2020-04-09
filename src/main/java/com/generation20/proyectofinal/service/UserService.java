@@ -12,4 +12,5 @@ public interface UserService {
 	User update(Integer id, User user);
 	User remove(Integer id);
 	List<User> getVisible();	
+	Integer verified(String email, String password);
 }
