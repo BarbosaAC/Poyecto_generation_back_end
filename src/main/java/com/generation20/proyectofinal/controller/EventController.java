@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.generation20.proyectofinal.molde.Event;
 import com.generation20.proyectofinal.service.EventService;
@@ -26,8 +27,23 @@ public class EventController {
 	private EventService eventService;
 	
 	@PostMapping
-	public ResponseEntity<Event> createEvent(@RequestBody Event event){
-		return new ResponseEntity<>(eventService.save(event), HttpStatus.CREATED);
+	public ResponseEntity<Event> createEvent(@RequestParam("idUser") Integer idUser,
+			@RequestParam("idSport") Integer idSport,
+			@RequestParam("description") String description,
+			@RequestParam("ubication") String ubication,
+			@RequestParam("link") String link,
+			@RequestParam("eventTime") String eventTime,
+			@RequestParam("eventDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date eventDate,
+			@RequestParam("file") MultipartFile file) {
+		Event event = new Event();
+		event.setIdUser(idUser);
+		event.setIdSport(idSport);
+		event.setDescription(description);
+		event.setUbication(ubication);
+		event.setLink(link);
+		event.setEventTime(eventTime);
+		event.setEventDate(eventDate);
+		return new ResponseEntity<>(eventService.save(event,file), HttpStatus.CREATED);
 	}
 	@GetMapping
 	public ResponseEntity<List<Event>> getAll(){

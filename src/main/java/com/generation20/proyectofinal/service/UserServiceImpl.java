@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.generation20.proyectofinal.dao.UserRepository;
 import com.generation20.proyectofinal.molde.User;
@@ -16,6 +17,8 @@ public class UserServiceImpl implements UserService{
 
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private StorageService storageService;
 	
 	@Override
 	public List<User> getAll() {
@@ -66,6 +69,12 @@ public class UserServiceImpl implements UserService{
 		}else {
 			return 0;
 		}
-		
+	}
+	@Override
+	public User upload(Integer id, String description, MultipartFile file) {
+		User user = getById(id);
+		user.setProfilePic(storageService.uploadFile(file));
+		user.setDescription(description);
+		return userRepository.save(user);
 	}
 }

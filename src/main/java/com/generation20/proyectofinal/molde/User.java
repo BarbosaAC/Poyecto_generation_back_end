@@ -35,7 +35,7 @@ public class User {
 	private String password;
 	@Column(length = 255)
 	private volatile String description;
-	@Column(length = 100)
+	@Column(length = 255)
 	private String profilePic;
 	private boolean visibility;
 	@Temporal(TemporalType.TIMESTAMP)

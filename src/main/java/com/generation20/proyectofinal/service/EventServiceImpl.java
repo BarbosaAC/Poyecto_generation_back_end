@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.generation20.proyectofinal.dao.EventRepository;
 import com.generation20.proyectofinal.dao.SportRepository;
@@ -22,6 +23,8 @@ public class EventServiceImpl implements EventService{
 	private UserRepository userRepository;
 	@Autowired
 	private SportRepository sportRepository;
+	@Autowired
+	private StorageService storageService;
 	
 	@Override
 	public List<Event> getAll() {
@@ -40,9 +43,10 @@ public class EventServiceImpl implements EventService{
 		return eventRepository.findByIdUser(idUser);
 	}
 	@Override
-	public Event save(Event event) {
+	public Event save(Event event, MultipartFile file) {
 		User user = userRepository.findById(event.getIdUser()).get();
 		Sport sport = sportRepository.findById(event.getIdSport()).get();
+		event.setPhoto(storageService.uploadFile(file));
 		event.setCreatedAt(new Date());
 		event.setNameAuthor(user.getUserName());
 		event.setNameSport(sport.getName());

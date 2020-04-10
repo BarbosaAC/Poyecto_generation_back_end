@@ -20,18 +20,20 @@ public class Event {
 	public Integer id;
 	@Column(nullable = false)
 	public Integer idUser;
+	@Column(nullable = false)
 	public Integer idSport;
-	@Column(length = 100)
+	@Column(length = 255, nullable = false)
 	public String photo;
 	@Column(length = 512, nullable = false)
 	public String description;
 	@Column(length = 50)
 	public String link;
-	@Column(length = 50)
+	@Column(length = 50, nullable = false)
 	public String ubication;
-	@Column (length = 20)
+	@Column(length = 20, nullable = false)
 	public String eventTime;
 	@Temporal (TemporalType.DATE)
+	@Column(nullable = false)
 	public Date eventDate;
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date createdAt;

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.generation20.proyectofinal.dao.PublicationRepository;
 import com.generation20.proyectofinal.dao.SportRepository;
@@ -22,6 +23,8 @@ public class PublicationServiceImpl implements PublicationService{
 	private UserRepository userRepository;
 	@Autowired
 	private SportRepository sportRepository;
+	@Autowired
+	private StorageService storageService;
 	
 	@Override
 	public List<Publication> getAll() {
@@ -40,9 +43,10 @@ public class PublicationServiceImpl implements PublicationService{
 		return publicationRepository.findAllByIdUserAndIdSport(idUser, idSport);
 	}
 	@Override
-	public Publication save(Publication publication) {
+	public Publication save(Publication publication, MultipartFile file) {
 		User user = userRepository.findById(publication.getIdUser()).get();
 		Sport sport = sportRepository.findById(publication.getIdSport()).get();
+		publication.setPhoto(storageService.uploadFile(file));
 		publication.setCreatedAt(new Date());
 		publication.setVisibility(true);
 		publication.setNameAuthor(user.getUserName());

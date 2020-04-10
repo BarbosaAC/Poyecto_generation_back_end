@@ -3,11 +3,13 @@ package com.generation20.proyectofinal.service;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.generation20.proyectofinal.molde.Event;
 
 public interface EventService {
 
-	Event save(Event event);
+	Event save(Event event, MultipartFile file);
 	Event update(Integer id, Event event);
 	List<Event> getAll();
 	Event getById(Integer id);

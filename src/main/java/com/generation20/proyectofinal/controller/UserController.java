@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.generation20.proyectofinal.molde.User;
 import com.generation20.proyectofinal.molde.UserSport;
@@ -69,7 +70,12 @@ public class UserController {
 		}else {
 			return new ResponseEntity<>(idUser, HttpStatus.NOT_ACCEPTABLE);
 		}
-		
+	}
+	@PutMapping("/{id}")
+	public ResponseEntity<User> upload(@PathVariable("id") Integer id,
+										@RequestParam("description") String description,
+										@RequestParam("file") MultipartFile file){
+		return new ResponseEntity<>(userService.upload(id, description, file), HttpStatus.CREATED);
 	}
 	
 }

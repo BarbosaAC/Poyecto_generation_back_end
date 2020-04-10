@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.generation20.proyectofinal.molde.Publication;
 import com.generation20.proyectofinal.service.PublicationService;
@@ -25,8 +26,22 @@ public class PublicationController {
 	private PublicationService publicationService;
 	
 	@PostMapping
-	public ResponseEntity<Publication> createPublication(@RequestBody Publication publication) {
-		return new ResponseEntity<>(publicationService.save(publication), HttpStatus.CREATED);
+	public ResponseEntity<Publication> createPublication(
+			@RequestParam("idUser") Integer idUser,
+			@RequestParam("idSport") Integer idSport,
+			@RequestParam("text") String text,
+			@RequestParam("ubication") String ubication,
+			@RequestParam("link") String link,
+			@RequestParam("cost") int cost,
+			@RequestParam("file") MultipartFile file) {
+		Publication publication = new Publication();
+		publication.setIdUser(idUser);
+		publication.setIdSport(idSport);
+		publication.setText(text);
+		publication.setUbication(ubication);
+		publication.setLink(link);
+		publication.setCost(cost);
+		return new ResponseEntity<>(publicationService.save(publication,file), HttpStatus.CREATED);
 	}
 	@GetMapping("/all")
 	public ResponseEntity<List<Publication>> getAllPublication(){
