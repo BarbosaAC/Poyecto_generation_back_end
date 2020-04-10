@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -46,6 +47,10 @@ public class EventController {
 		return new ResponseEntity<>(eventService.save(event,file), HttpStatus.CREATED);
 	}
 	@GetMapping
+	public ResponseEntity<List<Event>> getVisibility(){
+		return new ResponseEntity<>(eventService.getByVisibility(), HttpStatus.OK);
+	}
+	@GetMapping("/all")
 	public ResponseEntity<List<Event>> getAll(){
 		return new ResponseEntity<>(eventService.getAll(), HttpStatus.OK);
 	}
@@ -69,7 +74,7 @@ public class EventController {
 			@DateTimeFormat(pattern = "yyyy-MM-dd") Date firstDate,
 			@RequestParam(value = "endDate")
 			@DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate){
-		return new ResponseEntity<>(eventService.getAllByEventDateBetween(firstDate, endDate), HttpStatus.OK);
+		return new ResponseEntity<>(eventService.getByEventDateBetween(firstDate, endDate), HttpStatus.OK);
 	}
 	@GetMapping("/by")
 	public ResponseEntity<Event> getById(@RequestParam(value = "id") Integer id) {
@@ -79,5 +84,9 @@ public class EventController {
 	public ResponseEntity<Event> update(@RequestParam(value = "id") Integer id,
 						@RequestBody Event event) {
 		return new ResponseEntity<>(eventService.update(id, event), HttpStatus.CREATED);
+	}
+	@DeleteMapping
+	public ResponseEntity<Event> remove(@RequestParam(value = "id") Integer id){
+		return new ResponseEntity<>(eventService.remove(id), HttpStatus.OK);
 	}
 }

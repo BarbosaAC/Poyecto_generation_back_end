@@ -14,5 +14,6 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 	List<Event> findByIdUser(Integer idUser);
 	List<Event> findByIdSport(Integer idSport);
 	List<Event> findByEventDate(Date eventDate);
-	List<Event> findByEventDateBetween(Date firstDate, Date endDate);
+	List<Event> findByVisibilityAndEventDateBetweenOrderByEventDate(boolean visivility, Date firstDate, Date endDate);
+	List<Event> findByVisibility(boolean visivility);
 }

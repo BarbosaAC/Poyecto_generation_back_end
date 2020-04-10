@@ -25,11 +25,9 @@ public class Sport {
 	private Integer id;
 	@Column(length = 30, nullable = false)
 	private String name;
-	@Column(length = 255, nullable = false)
+	@Column(length = 512, nullable = false)
 	private String description;
-	@Column(length = 50, nullable = false)
-	private String type;
-	@Column(length = 100, nullable = false)
+	@Column(length = 255, nullable = false)
 	private String photo;
 	private boolean visibility;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -48,7 +46,6 @@ public class Sport {
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.type = type;
 		this.photo = photo;
 		this.visibility = visibility;
 		this.createdAt = createdAt;
@@ -95,14 +92,6 @@ public class Sport {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
 	}
 
 	public String getPhoto() {

@@ -50,6 +50,7 @@ public class EventServiceImpl implements EventService{
 		event.setCreatedAt(new Date());
 		event.setNameAuthor(user.getUserName());
 		event.setNameSport(sport.getName());
+		event.setVisibility(true);
 		return eventRepository.save(event);
 	}
 	@Override
@@ -68,7 +69,17 @@ public class EventServiceImpl implements EventService{
 		return eventRepository.save(eventDB);
 	}
 	@Override
-	public List<Event> getAllByEventDateBetween(Date firstDate, Date endDate) {
-		return eventRepository.findByEventDateBetween(firstDate, endDate);
+	public List<Event> getByEventDateBetween(Date firstDate, Date endDate) {
+		return eventRepository.findByVisibilityAndEventDateBetweenOrderByEventDate(true, firstDate, endDate);
+	}
+	@Override
+	public Event remove(Integer id) {
+		Event eventDB = getById(id);
+		eventDB.setVisibility(false);
+		return eventRepository.save(eventDB);
+	}
+	@Override
+	public List<Event> getByVisibility() {
+		return eventRepository.findByVisibility(true);
 	}
 }

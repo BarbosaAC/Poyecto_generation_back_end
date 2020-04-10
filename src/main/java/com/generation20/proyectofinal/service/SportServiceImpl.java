@@ -40,7 +40,6 @@ public class SportServiceImpl implements SportService{
 		Sport sportDB = getById(id);
 		sportDB.setDescription(sport.getDescription());
 		sportDB.setPhoto(sport.getPhoto());
-		sportDB.setType(sport.getType());
 		return sportRepository.save(sportDB);
 	}
 	@Override

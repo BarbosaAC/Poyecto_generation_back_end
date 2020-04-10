@@ -24,11 +24,12 @@ public class Event {
 	public Integer idSport;
 	@Column(length = 255, nullable = false)
 	public String photo;
-	@Column(length = 512, nullable = false)
+	@Column(length = 700, nullable = false)
 	public String description;
-	@Column(length = 50)
+	@Column(length = 255)
 	public String link;
 	@Column(length = 50, nullable = false)
+	//idruta
 	public String ubication;
 	@Column(length = 20, nullable = false)
 	public String eventTime;
@@ -41,12 +42,14 @@ public class Event {
 	public String nameAuthor;
 	@Column(length = 30, nullable = false)
 	public String nameSport;
+	public boolean visibility;
 	
 	public Event() {}
 
-
+	
 	public Event(Integer id, Integer idUser, Integer idSport, String photo, String description, String link,
-			String ubication, String eventTime, Date eventDate, Date createdAt, String nameAuthor, String nameSport) {
+			String ubication, String eventTime, Date eventDate, Date createdAt, String nameAuthor, String nameSport,
+			boolean visibility) {
 		super();
 		this.id = id;
 		this.idUser = idUser;
@@ -60,27 +63,34 @@ public class Event {
 		this.createdAt = createdAt;
 		this.nameAuthor = nameAuthor;
 		this.nameSport = nameSport;
+		this.visibility = visibility;
 	}
+
 	
+
+	public boolean isVisibility() {
+		return visibility;
+	}
+
+	public void setVisibility(boolean visibility) {
+		this.visibility = visibility;
+	}
+
 	public String getNameAuthor() {
 		return nameAuthor;
 	}
-
 
 	public void setNameAuthor(String nameAuthor) {
 		this.nameAuthor = nameAuthor;
 	}
 
-
 	public String getNameSport() {
 		return nameSport;
 	}
 
-
 	public void setNameSport(String nameSport) {
 		this.nameSport = nameSport;
 	}
-
 
 	public String getEventTime() {
 		return eventTime;

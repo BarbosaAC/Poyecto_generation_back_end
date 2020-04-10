@@ -12,4 +12,5 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 
 	List<User> findByVisibility(boolean visibility);
 	User findByEmail(String email);
+	User findByUserName(String userName);
 }

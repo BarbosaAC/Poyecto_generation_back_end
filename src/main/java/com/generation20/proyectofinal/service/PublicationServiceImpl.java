@@ -56,7 +56,6 @@ public class PublicationServiceImpl implements PublicationService{
 	@Override
 	public Publication update(Integer id, Publication publication) {
 		Publication publicationDB = getById(id);
-		publicationDB.setCost(publication.getCost());
 		publicationDB.setLink(publication.getLink());
 		publicationDB.setPhoto(publication.getPhoto());
 		publicationDB.setText(publication.getText());

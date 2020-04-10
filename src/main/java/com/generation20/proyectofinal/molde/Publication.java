@@ -22,16 +22,15 @@ public class Publication {
 	public Integer idUser;
 	@Column(nullable = false)
 	public Integer idSport;
-	@Column(length = 512, nullable = false)
+	@Column(length = 700, nullable = false)
 	public String text;
-	@Column(length = 100, nullable = false)
+	@Column(length = 255, nullable = false)
 	public String photo;
 	@Column(length = 100, nullable = false)
+	//idroute
 	public String ubication;
-	@Column(length = 100, nullable = false)
+	@Column(length = 255)
 	public String link;
-	@Column(nullable = false)
-	public int cost;
 	public boolean visibility;
 	@Column(length = 30, nullable = false)
 	public String nameAuthor;
@@ -45,7 +44,7 @@ public class Publication {
 
 
 	public Publication(Integer id, Integer idUser, Integer idSport, String text, String photo, String ubication,
-			String link, int cost, boolean visibility, String nameAuthor, String nameSport, Date createdAt) {
+			String link, boolean visibility, String nameAuthor, String nameSport, Date createdAt) {
 		super();
 		this.id = id;
 		this.idUser = idUser;
@@ -54,7 +53,6 @@ public class Publication {
 		this.photo = photo;
 		this.ubication = ubication;
 		this.link = link;
-		this.cost = cost;
 		this.visibility = visibility;
 		this.nameAuthor = nameAuthor;
 		this.nameSport = nameSport;
@@ -142,14 +140,6 @@ public class Publication {
 
 	public void setLink(String link) {
 		this.link = link;
-	}
-
-	public int getCost() {
-		return cost;
-	}
-
-	public void setCost(int cost) {
-		this.cost = cost;
 	}
 
 	public Date getCreatedAt() {

@@ -40,7 +40,6 @@ public class PublicationController {
 		publication.setText(text);
 		publication.setUbication(ubication);
 		publication.setLink(link);
-		publication.setCost(cost);
 		return new ResponseEntity<>(publicationService.save(publication,file), HttpStatus.CREATED);
 	}
 	@GetMapping("/all")
