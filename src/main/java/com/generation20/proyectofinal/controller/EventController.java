@@ -31,7 +31,6 @@ public class EventController {
 	public ResponseEntity<Event> createEvent(@RequestParam("idUser") Integer idUser,
 			@RequestParam("idSport") Integer idSport,
 			@RequestParam("description") String description,
-			@RequestParam("ubication") String ubication,
 			@RequestParam("link") String link,
 			@RequestParam("eventTime") String eventTime,
 			@RequestParam("eventDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date eventDate,
@@ -40,7 +39,6 @@ public class EventController {
 		event.setIdUser(idUser);
 		event.setIdSport(idSport);
 		event.setDescription(description);
-		event.setUbication(ubication);
 		event.setLink(link);
 		event.setEventTime(eventTime);
 		event.setEventDate(eventDate);

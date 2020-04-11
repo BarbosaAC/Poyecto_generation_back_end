@@ -59,7 +59,6 @@ public class PublicationServiceImpl implements PublicationService{
 		publicationDB.setLink(publication.getLink());
 		publicationDB.setPhoto(publication.getPhoto());
 		publicationDB.setText(publication.getText());
-		publicationDB.setUbication(publication.getUbication());
 		return publicationRepository.save(publicationDB);
 	}
 	@Override

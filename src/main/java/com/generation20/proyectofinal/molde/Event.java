@@ -2,11 +2,15 @@ package com.generation20.proyectofinal.molde;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,9 +32,6 @@ public class Event {
 	public String description;
 	@Column(length = 255)
 	public String link;
-	@Column(length = 50, nullable = false)
-	//idruta
-	public String ubication;
 	@Column(length = 20, nullable = false)
 	public String eventTime;
 	@Temporal (TemporalType.DATE)
@@ -43,12 +44,16 @@ public class Event {
 	@Column(length = 30, nullable = false)
 	public String nameSport;
 	public boolean visibility;
+	@OneToOne(targetEntity = Route.class, cascade = CascadeType.ALL,
+			fetch = FetchType.LAZY, orphanRemoval = false)
+	@JoinColumn(name = "idEvent", referencedColumnName = "id")
+	public Route route;
 	
 	public Event() {}
 
 	
 	public Event(Integer id, Integer idUser, Integer idSport, String photo, String description, String link,
-			String ubication, String eventTime, Date eventDate, Date createdAt, String nameAuthor, String nameSport,
+			String eventTime, Date eventDate, Date createdAt, String nameAuthor, String nameSport,
 			boolean visibility) {
 		super();
 		this.id = id;
@@ -57,7 +62,6 @@ public class Event {
 		this.photo = photo;
 		this.description = description;
 		this.link = link;
-		this.ubication = ubication;
 		this.eventTime = eventTime;
 		this.eventDate = eventDate;
 		this.createdAt = createdAt;
@@ -146,14 +150,6 @@ public class Event {
 
 	public void setLink(String link) {
 		this.link = link;
-	}
-
-	public String getUbication() {
-		return ubication;
-	}
-
-	public void setUbication(String ubication) {
-		this.ubication = ubication;
 	}
 
 	public Date getEventDate() {

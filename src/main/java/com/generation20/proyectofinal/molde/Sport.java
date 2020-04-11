@@ -40,7 +40,7 @@ public class Sport {
 	public Sport() {}
 
 	
-	public Sport(Integer id, String name, String description, String type, String photo, boolean visibility,
+	public Sport(Integer id, String name, String description, String photo, boolean visibility,
 			Date createdAt, List<UserSport> userSport) {
 		super();
 		this.id = id;

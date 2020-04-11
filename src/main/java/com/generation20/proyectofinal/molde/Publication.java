@@ -1,12 +1,17 @@
 package com.generation20.proyectofinal.molde;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,9 +31,6 @@ public class Publication {
 	public String text;
 	@Column(length = 255, nullable = false)
 	public String photo;
-	@Column(length = 100, nullable = false)
-	//idroute
-	public String ubication;
 	@Column(length = 255)
 	public String link;
 	public boolean visibility;
@@ -38,28 +40,42 @@ public class Publication {
 	public String nameSport;
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date createdAt;
+	@OneToMany(targetEntity = Route.class, cascade = CascadeType.ALL,
+			fetch = FetchType.LAZY, orphanRemoval = false)
+	@JoinColumn(name = "idPublication", referencedColumnName = "id")
+	public List<Route> route;
 	
 	public Publication() {}
 
 
-
-	public Publication(Integer id, Integer idUser, Integer idSport, String text, String photo, String ubication,
-			String link, boolean visibility, String nameAuthor, String nameSport, Date createdAt) {
+	public Publication(Integer id, Integer idUser, Integer idSport, String text, String photo, String link,
+			boolean visibility, String nameAuthor, String nameSport, Date createdAt, List<Route> route) {
 		super();
 		this.id = id;
 		this.idUser = idUser;
 		this.idSport = idSport;
 		this.text = text;
 		this.photo = photo;
-		this.ubication = ubication;
 		this.link = link;
 		this.visibility = visibility;
 		this.nameAuthor = nameAuthor;
 		this.nameSport = nameSport;
 		this.createdAt = createdAt;
+		this.route = route;
 	}
 
 	
+
+	public List<Route> getRoute() {
+		return route;
+	}
+
+
+	public void setRoute(List<Route> route) {
+		this.route = route;
+	}
+
+
 	public String getNameAuthor() {
 		return nameAuthor;
 	}
@@ -124,14 +140,6 @@ public class Publication {
 
 	public void setPhoto(String photo) {
 		this.photo = photo;
-	}
-
-	public String getUbication() {
-		return ubication;
-	}
-
-	public void setUbication(String ubication) {
-		this.ubication = ubication;
 	}
 
 	public String getLink() {

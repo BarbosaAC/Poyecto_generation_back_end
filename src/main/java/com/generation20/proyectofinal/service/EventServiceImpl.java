@@ -65,7 +65,6 @@ public class EventServiceImpl implements EventService{
 		eventDB.setEventTime(event.getEventTime());
 		eventDB.setLink(event.getLink());
 		eventDB.setPhoto(event.getPhoto());
-		eventDB.setUbication(event.getUbication());
 		return eventRepository.save(eventDB);
 	}
 	@Override

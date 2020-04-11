@@ -30,7 +30,6 @@ public class PublicationController {
 			@RequestParam("idUser") Integer idUser,
 			@RequestParam("idSport") Integer idSport,
 			@RequestParam("text") String text,
-			@RequestParam("ubication") String ubication,
 			@RequestParam("link") String link,
 			@RequestParam("cost") int cost,
 			@RequestParam("file") MultipartFile file) {
@@ -38,7 +37,6 @@ public class PublicationController {
 		publication.setIdUser(idUser);
 		publication.setIdSport(idSport);
 		publication.setText(text);
-		publication.setUbication(ubication);
 		publication.setLink(link);
 		return new ResponseEntity<>(publicationService.save(publication,file), HttpStatus.CREATED);
 	}
