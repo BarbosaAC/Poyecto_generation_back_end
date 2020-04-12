@@ -28,7 +28,6 @@ public class RouteServiceImpl implements RouteService{
 	public Route save(Route route) {
 		Route routeSave = routeRepository.save(route);
 		List<Coordinate> coordinates = route.getCoordinate();
-		
 		for (Coordinate coordinate : coordinates) {
 			coordinate.setIdRoute(routeSave.getId());
 			coordinate.setCreatedAt(new Date());

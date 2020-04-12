@@ -36,14 +36,26 @@ public class Route {
 	
 	public Route() {}
 	
-	public Route(Integer id, Integer idPublication, String information, Date createdAt, List<Coordinate> coordinate) {
+	
+	public Route(Integer id, Integer idPublication, Integer idEvent, String information, Date createdAt,
+			List<Coordinate> coordinate) {
 		super();
 		this.id = id;
 		this.idPublication = idPublication;
+		this.idEvent = idEvent;
 		this.information = information;
 		this.createdAt = createdAt;
 		this.coordinate = coordinate;
 	}
+
+	public Integer getIdEvent() {
+		return idEvent;
+	}
+
+	public void setIdEvent(Integer idEvent) {
+		this.idEvent = idEvent;
+	}
+
 	public Integer getId() {
 		return id;
 	}

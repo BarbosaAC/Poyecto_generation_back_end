@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.generation20.proyectofinal.dao.EventRepository;
+import com.generation20.proyectofinal.dao.RouteRepository;
 import com.generation20.proyectofinal.dao.SportRepository;
 import com.generation20.proyectofinal.dao.UserRepository;
 import com.generation20.proyectofinal.molde.Event;
+import com.generation20.proyectofinal.molde.Route;
 import com.generation20.proyectofinal.molde.Sport;
 import com.generation20.proyectofinal.molde.User;
 
@@ -25,6 +27,9 @@ public class EventServiceImpl implements EventService{
 	private SportRepository sportRepository;
 	@Autowired
 	private StorageService storageService;
+	@Autowired
+	private RouteService routeService;
+
 	
 	@Override
 	public List<Event> getAll() {
@@ -46,10 +51,16 @@ public class EventServiceImpl implements EventService{
 	public Event save(Event event, MultipartFile file) {
 		User user = userRepository.findById(event.getIdUser()).get();
 		Sport sport = sportRepository.findById(event.getIdSport()).get();
-		event.setPhoto(storageService.uploadFile(file));
-		event.setCreatedAt(new Date());
 		event.setNameAuthor(user.getUserName());
 		event.setNameSport(sport.getName());
+		event.setPhoto(storageService.uploadFile(file));
+		Event eventSave =eventRepository.save(event);
+		List<Route> routes = event.getRoute();
+		for (Route route : routes) {
+			route.setIdEvent(eventSave.getId());
+			routeService.save(route);
+		}
+		event.setCreatedAt(new Date());
 		event.setVisibility(true);
 		return eventRepository.save(event);
 	}

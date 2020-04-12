@@ -21,21 +21,21 @@ public class Coordinate {
 	public Integer idRoute;
 	public Integer numberPoint;
 	@Column(nullable = false)
-	public float latitude;
+	public float lat;
 	@Column(nullable = false)
-	public float longitude;
+	public float lng;
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date createdAt;
 	
 	public Coordinate() {}
 
-	public Coordinate(Integer id, Integer idRoute, Integer numberPoint, float latitude, float longitude, Date createdAt) {
+	public Coordinate(Integer id, Integer idRoute, Integer numberPoint, float lat, float lng, Date createdAt) {
 		super();
 		this.id = id;
 		this.idRoute = idRoute;
 		this.numberPoint = numberPoint;
-		this.latitude = latitude;
-		this.longitude = longitude;
+		this.lat = lat;
+		this.lng = lng;
 		this.createdAt = createdAt;
 	}
 
@@ -63,20 +63,20 @@ public class Coordinate {
 		this.numberPoint = numberPoint;
 	}
 
-	public float getLatitude() {
-		return latitude;
+	public float getLat() {
+		return lat;
 	}
 
-	public void setLatitude(float latitude) {
-		this.latitude = latitude;
+	public void setLat(float lat) {
+		this.lat = lat;
 	}
 
-	public float getLongitude() {
-		return longitude;
+	public float getLng() {
+		return lng;
 	}
 
-	public void setLongitude(float longitude) {
-		this.longitude = longitude;
+	public void setLng(float lng) {
+		this.lng = lng;
 	}
 
 	public Date getCreatedAt() {

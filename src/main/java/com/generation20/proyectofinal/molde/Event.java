@@ -1,6 +1,7 @@
 package com.generation20.proyectofinal.molde;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,7 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -44,17 +45,17 @@ public class Event {
 	@Column(length = 30, nullable = false)
 	public String nameSport;
 	public boolean visibility;
-	@OneToOne(targetEntity = Route.class, cascade = CascadeType.ALL,
+	@OneToMany(targetEntity = Route.class, cascade = CascadeType.ALL,
 			fetch = FetchType.LAZY, orphanRemoval = false)
 	@JoinColumn(name = "idEvent", referencedColumnName = "id")
-	public Route route;
+	public List<Route> route;
 	
 	public Event() {}
 
 	
 	public Event(Integer id, Integer idUser, Integer idSport, String photo, String description, String link,
-			String eventTime, Date eventDate, Date createdAt, String nameAuthor, String nameSport,
-			boolean visibility) {
+			String eventTime, Date eventDate, Date createdAt, String nameAuthor, String nameSport, boolean visibility,
+			List<Route> route) {
 		super();
 		this.id = id;
 		this.idUser = idUser;
@@ -68,10 +69,15 @@ public class Event {
 		this.nameAuthor = nameAuthor;
 		this.nameSport = nameSport;
 		this.visibility = visibility;
+		this.route = route;
 	}
 
-	
-
+	public List<Route> getRoute() {
+		return route;
+	}
+	public void setRoute(List<Route> route) {
+		this.route = route;
+	}
 	public boolean isVisibility() {
 		return visibility;
 	}

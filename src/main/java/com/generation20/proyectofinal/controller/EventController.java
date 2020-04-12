@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.generation20.proyectofinal.molde.Event;
+import com.generation20.proyectofinal.molde.Route;
 import com.generation20.proyectofinal.service.EventService;
 
 @RestController
@@ -28,20 +31,28 @@ public class EventController {
 	private EventService eventService;
 	
 	@PostMapping
-	public ResponseEntity<Event> createEvent(@RequestParam("idUser") Integer idUser,
-			@RequestParam("idSport") Integer idSport,
-			@RequestParam("description") String description,
-			@RequestParam("link") String link,
-			@RequestParam("eventTime") String eventTime,
-			@RequestParam("eventDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date eventDate,
+	public ResponseEntity<Event> createEvent(@RequestParam("event") String eventJson,
+//			@RequestParam("idSport") Integer idSport,
+//			@RequestParam("description") String description,
+//			@RequestParam("link") String link,
+//			@RequestParam("eventTime") String eventTime,
+//			@RequestParam("eventDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date eventDate,
 			@RequestParam("file") MultipartFile file) {
-		Event event = new Event();
-		event.setIdUser(idUser);
-		event.setIdSport(idSport);
-		event.setDescription(description);
-		event.setLink(link);
-		event.setEventTime(eventTime);
-		event.setEventDate(eventDate);
+//		Event event = new Event();
+//		event.setIdUser(idUser);
+//		event.setIdSport(idSport);
+//		event.setDescription(description);
+//		event.setLink(link);
+//		event.setEventTime(eventTime);
+//		event.setEventDate(eventDate);
+		Event event = null;
+		try {
+			event = new ObjectMapper().readValue(eventJson, Event.class);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return new ResponseEntity<>(eventService.save(event,file), HttpStatus.CREATED);
 	}
 	@GetMapping
