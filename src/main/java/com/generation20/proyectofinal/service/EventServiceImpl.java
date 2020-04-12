@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.generation20.proyectofinal.dao.EventRepository;
-import com.generation20.proyectofinal.dao.RouteRepository;
 import com.generation20.proyectofinal.dao.SportRepository;
 import com.generation20.proyectofinal.dao.UserRepository;
 import com.generation20.proyectofinal.molde.Event;

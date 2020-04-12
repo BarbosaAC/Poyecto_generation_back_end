@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.generation20.proyectofinal.molde.Event;
-import com.generation20.proyectofinal.molde.Route;
 import com.generation20.proyectofinal.service.EventService;
 
 @RestController

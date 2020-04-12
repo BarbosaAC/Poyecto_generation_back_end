@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.generation20.proyectofinal.molde.Publication;
 import com.generation20.proyectofinal.service.PublicationService;
 
@@ -27,17 +29,15 @@ public class PublicationController {
 	
 	@PostMapping
 	public ResponseEntity<Publication> createPublication(
-			@RequestParam("idUser") Integer idUser,
-			@RequestParam("idSport") Integer idSport,
-			@RequestParam("text") String text,
-			@RequestParam("link") String link,
-			@RequestParam("cost") int cost,
+			@RequestParam("publication") String publicationJson,
 			@RequestParam("file") MultipartFile file) {
-		Publication publication = new Publication();
-		publication.setIdUser(idUser);
-		publication.setIdSport(idSport);
-		publication.setText(text);
-		publication.setLink(link);
+		Publication publication = null;
+		try {
+			publication = new ObjectMapper().readValue(publicationJson, Publication.class);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
 		return new ResponseEntity<>(publicationService.save(publication,file), HttpStatus.CREATED);
 	}
 	@GetMapping("/all")
