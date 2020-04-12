@@ -41,7 +41,6 @@ public class RouteController {
 	}
 	@PostMapping
 	public ResponseEntity<Route> createRoute(@RequestParam(value = "route") String jsonRoute){
-		System.out.println(jsonRoute);
 		Route route = null;
 		try {
 			route = new ObjectMapper().readValue(jsonRoute, Route.class);
